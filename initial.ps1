@@ -89,7 +89,7 @@ Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Backgro
 #Set-ItemProperty -Path  "HKLM:Software\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsRunInBackground" -Type DWord -Value 2 -Force 
 
 # Disable Smart Screen
-Set-ItemProperty -Path  "HKCU:HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -Type DWord -Value 0 -Force 
+Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -Type DWord -Value 0 -Force 
 
 
 # Never sleep
