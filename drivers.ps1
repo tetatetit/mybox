@@ -1,1 +1,1 @@
-cinst -y vmware-tools
+Install-BoxstarterPackage -PackageName vmware-tools
