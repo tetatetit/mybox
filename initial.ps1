@@ -28,7 +28,7 @@
 #$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 #$Password = Read-Host "Enter a Password:" -AsSecureString
 
-Invoke-Boxstarter -ScriptToCall  {
+#Invoke-Boxstarter -ScriptToCall  {
  
 Update-ExecutionPolicy Unrestricted
 #--- Windows Settings ---
@@ -240,6 +240,6 @@ If (-Not (Test-Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name PeopleBand -Type DWord -Value 0
 
 # Install updates
-    Install-WindowsUpdate -All -AcceptEula
-    if (Test-PendingReboot) { Invoke-Reboot }
-}
+Install-WindowsUpdate -All -AcceptEula
+if (Test-PendingReboot) { Invoke-Reboot }
+#}
