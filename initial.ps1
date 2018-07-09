@@ -82,6 +82,8 @@ Set-ItemProperty -Path  "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sche
 Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Name "GlobalUserDisabled" -Type DWord -Value 1 -Force 
 #Set-ItemProperty -Path  "HKLM:Software\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsRunInBackground" -Type DWord -Value 2 -Force 
 
+# Disable Smart Screen
+Set-ItemProperty -Path  "HKCU:HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -Type DWord -Value 0 -Force 
 
 
 # Never sleep
