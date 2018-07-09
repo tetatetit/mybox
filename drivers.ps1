@@ -1,1 +1,1 @@
-Install-BoxstarterPackage -PackageName vmware-tools
+Install-BoxstarterPackage -PackageName "vmware-tools"
