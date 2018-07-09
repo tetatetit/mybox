@@ -238,3 +238,4 @@ Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\
 
 # Install updates
 Install-WindowsUpdate -All -AcceptEula
+if (Test-PendingReboot) { Invoke-Reboot }
