@@ -236,8 +236,5 @@ If (-Not (Test-Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 }
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name PeopleBand -Type DWord -Value 0
 
-# Install drivers
-#Install-BoxstarterPackage -PackageName "https://raw.githubusercontent.com/tetatetit/mybox/master/drivers.ps1"
-
 # Install updates
-Install-BoxstarterPackage -PackageName "https://raw.githubusercontent.com/tetatetit/mybox/master/updates.ps1"
+Install-WindowsUpdate -All -AcceptEula
