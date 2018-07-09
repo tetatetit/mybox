@@ -1,1 +1,2 @@
-install-windowsupdate -all -AcceptEula
+choco update -y "vmware-tools"
+if (Test-PendingReboot) { Invoke-Reboot }
