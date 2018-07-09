@@ -23,6 +23,11 @@
 #---- TEMPORARY ---
 #Disable-UAC
 
+$Boxstarter.RebootOk = $true # Allow reboots?
+$Boxstarter.NoPassword = $false # Is this a machine with no login password?
+$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
+ 
+Update-ExecutionPolicy Unrestricted
 #--- Windows Settings ---
 
 # Disable system restore
@@ -40,6 +45,7 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
 
 # Disable Remote Assistance
 Set-ItemProperty -Path  "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0 -Force 
+Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
 
 function configure-updates() {
 # Set Windows Update to:
@@ -231,7 +237,7 @@ If (-Not (Test-Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name PeopleBand -Type DWord -Value 0
 
 # Install drivers
-Install-BoxstarterPackage -PackageName "https://raw.githubusercontent.com/tetatetit/mybox/master/drivers.ps1"
+#Install-BoxstarterPackage -PackageName "https://raw.githubusercontent.com/tetatetit/mybox/master/drivers.ps1"
 
 # Install updates
 Install-BoxstarterPackage -PackageName "https://raw.githubusercontent.com/tetatetit/mybox/master/updates.ps1"
