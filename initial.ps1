@@ -28,7 +28,7 @@
 #$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 #$Password = Read-Host "Enter a Password:" -AsSecureString
 
-Invoke-Boxstarter -ScriptToCall -Password $Password {
+Invoke-Boxstarter -ScriptToCall  {
  
 Update-ExecutionPolicy Unrestricted
 #--- Windows Settings ---
