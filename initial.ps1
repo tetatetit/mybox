@@ -23,8 +23,8 @@
 #---- TEMPORARY ---
 #Disable-UAC
 
-#$Boxstarter.RebootOk = $true # Allow reboots?
-#$Boxstarter.NoPassword = $false # Is this a machine with no login password?
+$Boxstarter.RebootOk = $true # Allow reboots?
+$Boxstarter.NoPassword = $true # Is this a machine with no login password?
 #$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 #$Password = Read-Host "Enter a Password:" -AsSecureString
 
