@@ -15,7 +15,8 @@ $Boxstarter.RebootOk = $true # Allow reboots?
 $Boxstarter.NoPassword = $false # Is this a machine with no login password?
 $Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 
-#Update-ExecutionPolicy Unrestricted
+Update-ExecutionPolicy Unrestricted
+#Set-ExecutionPolicy -Force RemoteSigned
 Disable-ComputerRestore -Drive "C:\"
 Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
 Disable-BingSearch
@@ -27,4 +28,4 @@ Invoke-Boxstarter -ScriptToCall -RebootOk {
     Install-WindowsUpdate -All -AcceptEula
 }
 
-Set-ExecutionPolicy -Force RemoteSigned
+
