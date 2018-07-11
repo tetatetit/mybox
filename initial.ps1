@@ -208,3 +208,5 @@ Disable-GameBarTips
 Set-WindowsExplorerOptions -EnableShowFileExtensions
 Set-TaskbarOptions -AlwaysShowIconsOn
 Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
+
+choco upgrade boxstarter
