@@ -1,6 +1,8 @@
 $Boxstarter.RebootOk = $true # Allow reboots?
-$Boxstarter.NoPassword = $false # Is this a machine with no login password?
 $Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
+$Password = Read-Host -AsSecureString "Autologon Password"
+$Boxstarter.NoPassword = ($Password == "")
+
 
 #Update-ExecutionPolicy Unrestricted
 #Set-ExecutionPolicy -Force RemoteSigned
@@ -199,9 +201,9 @@ If (-Not (Test-Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 }
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name PeopleBand -Type DWord -Value 0
 
-#Invoke-Boxstarter -ScriptToCall -RebootOk {
-#    Install-WindowsUpdate -All -AcceptEula
-#}
+Invoke-Boxstarter -ScriptToCall -RebootOk -Password $Password -NoPassword $Boxstarter.NoPassword {
+    Install-WindowsUpdate -All -AcceptEula
+}
 
 Disable-BingSearch
 Disable-GameBarTips
