@@ -11,20 +11,11 @@
 # Learn more: http://boxstarter.org/Learn/WebLauncher
 
 #Disable-UAC
-$Boxstarter.RebootOk = $true # Allow reboots?
-$Boxstarter.NoPassword = $false # Is this a machine with no login password?
-$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
+#$Boxstarter.RebootOk = $true # Allow reboots?
+#$Boxstarter.NoPassword = $false # Is this a machine with no login password?
+#$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 
-Update-ExecutionPolicy Unrestricted
-#Set-ExecutionPolicy -Force RemoteSigned
-Disable-ComputerRestore -Drive "C:\"
-Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
-Disable-BingSearch
-Disable-GameBarTips
-Set-WindowsExplorerOptions -EnableShowFileExtensions
-Set-TaskbarOptions -AlwaysShowIconsOn
-
-Invoke-Boxstarter -ScriptToCall -RebootOk {
+Invoke-Boxstarter -ScriptToCall -RebootOk -NoPassword {
     Install-WindowsUpdate -All -AcceptEula
 }
 
