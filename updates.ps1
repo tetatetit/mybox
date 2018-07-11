@@ -11,12 +11,12 @@
 # Learn more: http://boxstarter.org/Learn/WebLauncher
 
 #Disable-UAC
-#$Boxstarter.RebootOk = $true # Allow reboots?
-#$Boxstarter.NoPassword = $false # Is this a machine with no login password?
+$Boxstarter.RebootOk = $true # Allow reboots?
+$Boxstarter.NoPassword = $true # Is this a machine with no login password?
 #$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 
-Invoke-Boxstarter -ScriptToCall -RebootOk -NoPassword {
-    Install-WindowsUpdate -All -AcceptEula
-}
+#Invoke-Boxstarter -ScriptToCall -RebootOk -NoPassword {
+    Install-WindowsUpdate -all -acceptEula
+#}
 
 
