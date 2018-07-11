@@ -1,3 +1,12 @@
+$Boxstarter.RebootOk = $true # Allow reboots?
+$Boxstarter.NoPassword = $false # Is this a machine with no login password?
+$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
+
+#Update-ExecutionPolicy Unrestricted
+#Set-ExecutionPolicy -Force RemoteSigned
+
+Disable-ComputerRestore -Drive "C:\"
+
 # Never sleep
 powercfg -change standby-timeout-ac 0
 powercfg -change standby-timeout-dc 0
@@ -190,3 +199,12 @@ If (-Not (Test-Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 }
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name PeopleBand -Type DWord -Value 0
 
+#Invoke-Boxstarter -ScriptToCall -RebootOk {
+#    Install-WindowsUpdate -All -AcceptEula
+#}
+
+Disable-BingSearch
+Disable-GameBarTips
+Set-WindowsExplorerOptions -EnableShowFileExtensions
+Set-TaskbarOptions -AlwaysShowIconsOn
+Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
