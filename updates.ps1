@@ -15,7 +15,7 @@ $Boxstarter.RebootOk = $true # Allow reboots?
 $Boxstarter.NoPassword = $true # Is this a machine with no login password?
 #$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 
-Invoke-Boxstarter -ScriptToCall -RebootOk -NoPassword {
+Invoke-Boxstarter -RebootOk -NoPassword -ScriptToCall {
     Install-WindowsUpdate -all -acceptEula
 }
 
