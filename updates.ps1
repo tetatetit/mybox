@@ -18,5 +18,3 @@ $Boxstarter.NoPassword = $true # Is this a machine with no login password?
 Invoke-Boxstarter -RebootOk -NoPassword -ScriptToCall {
     Install-WindowsUpdate -all -acceptEula
 }
-
-
