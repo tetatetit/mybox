@@ -1,42 +1,3 @@
-# Description: Boxstarter Script
-# Author: Jess Frazelle <jess@linux.com> + my modifications
-#
-# Install boxstarter:
-# 	. { iwr -useb http://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
-#
-# You might need to set: Set-ExecutionPolicy RemoteSigned
-#
-# NOTE/WARNING BEFORE RUNNING SCRIPT:
-# On Windoes 10 Enterprise 1803 (at least) we need in gpedit.msc in 
-# "Computer Configuration\Administrative Templates\Windows Components\Windows Update"
-# to set ANY (NO MATTER WHAT) item as configured, in order to get Windows Update policies
-# configured in this script actually applied and work (otherwise they don't for some reason
-# while e.g. Windows Defender policies are applied and work successfuly configured same way)
-#
-# Run this boxstarter by calling the following from an **elevated** command-prompt:
-# 	start http://boxstarter.org/package/nr/url?https://raw.githubusercontent.com/tetatetit/mybox/master/initial.ps1
-# OR
-# 	Install-BoxstarterPackage -PackageName https://raw.githubusercontent.com/tetatetit/mybox/master/initial.ps1
-#
-# Learn more: http://boxstarter.org/Learn/WebLauncher
-
-#Disable-UAC
-$Boxstarter.RebootOk = $true # Allow reboots?
-$Boxstarter.NoPassword = $false # Is this a machine with no login password?
-$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
-
-Update-ExecutionPolicy Unrestricted
-Disable-ComputerRestore -Drive "C:\"
-Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
-Disable-BingSearch
-Disable-GameBarTips
-Set-WindowsExplorerOptions -EnableShowFileExtensions
-Set-TaskbarOptions -AlwaysShowIconsOn
-
-Invoke-Boxstarter -ScriptToCall -RebootOk {
-    Install-WindowsUpdate -All -AcceptEula
-}
-
 # Never sleep
 powercfg -change standby-timeout-ac 0
 powercfg -change standby-timeout-dc 0
@@ -55,7 +16,6 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
 
 # Disable Remote Assistance
 Set-ItemProperty -Path  "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0 -Force 
-
 
 function configure-updates() {
 # Set Windows Update to:
