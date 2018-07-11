@@ -1,7 +1,7 @@
 $Boxstarter.RebootOk = $true # Allow reboots?
 $Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 $Password = Read-Host -AsSecureString "Autologon Password"
-$Boxstarter.NoPassword = ($Password == "")
+$Boxstarter.NoPassword = $Password.Length -eq 0
 
 
 #Update-ExecutionPolicy Unrestricted
