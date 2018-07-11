@@ -20,21 +20,28 @@
 #
 # Learn more: http://boxstarter.org/Learn/WebLauncher
 
-#---- TEMPORARY ---
 #Disable-UAC
-
 $Boxstarter.RebootOk = $true # Allow reboots?
-$Boxstarter.NoPassword = $true # Is this a machine with no login password?
-#$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
-#$Password = Read-Host "Enter a Password:" -AsSecureString
+$Boxstarter.NoPassword = $false # Is this a machine with no login password?
+$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 
-#Invoke-Boxstarter -ScriptToCall  {
- 
 Update-ExecutionPolicy Unrestricted
-#--- Windows Settings ---
-
-# Disable system restore
 Disable-ComputerRestore -Drive "C:\"
+Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
+Disable-BingSearch
+Disable-GameBarTips
+Set-WindowsExplorerOptions -EnableShowFileExtensions
+Set-TaskbarOptions -AlwaysShowIconsOn
+
+Invoke-Boxstarter -ScriptToCall -RebootOk {
+    Install-WindowsUpdate -All -AcceptEula
+}
+
+# Never sleep
+powercfg -change standby-timeout-ac 0
+powercfg -change standby-timeout-dc 0
+powercfg -change hibernate-timeout-ac 0
+powercfg -change hibernate-timeout-dc 0
 
 # Disable windows defender
 Set-MpPreference -DisableRealtimeMonitoring $true
@@ -48,7 +55,7 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
 
 # Disable Remote Assistance
 Set-ItemProperty -Path  "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0 -Force 
-Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
+
 
 function configure-updates() {
 # Set Windows Update to:
@@ -56,7 +63,7 @@ function configure-updates() {
 # * Semi-Annual Channel
 # * Defer features update to max possible 365 (until they a well tested)
 #gpupdate /force /target:computer
-$WindowsUpdatePath = "HKLM:SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
+$WindowsUpdatePath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
 New-Item -Path $WindowsUpdatePath -Force
 Set-ItemProperty -Path $WindowsUpdatePath -Name DeferFeatureUpdates -Type DWord -Value 1 -Force
 Set-ItemProperty -Path $WindowsUpdatePath -Name BranchReadinessLevel -Type DWord -Value 32 -Force
@@ -94,18 +101,6 @@ Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Backgro
 # Disable Smart Screen
 Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -Type DWord -Value 0 -Force 
 
-
-# Never sleep
-powercfg -change standby-timeout-ac 0
-powercfg -change standby-timeout-dc 0
-powercfg -change hibernate-timeout-ac 0
-powercfg -change hibernate-timeout-dc 0
-
-Disable-BingSearch
-Disable-GameBarTips
-
-Set-WindowsExplorerOptions -EnableShowFileExtensions
-Set-TaskbarOptions -AlwaysShowIconsOn
 
 # --- Uninstall crapware ---
 
@@ -239,7 +234,3 @@ If (-Not (Test-Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 }
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name PeopleBand -Type DWord -Value 0
 
-# Install updates
-Install-WindowsUpdate -All -AcceptEula
-if (Test-PendingReboot) { Invoke-Reboot }
-#}
