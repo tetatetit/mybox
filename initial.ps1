@@ -4,6 +4,31 @@ powercfg -change standby-timeout-dc 0
 powercfg -change hibernate-timeout-ac 0
 powercfg -change hibernate-timeout-dc 0
 
+# Set Windows Update to:
+# * Notify before download and install
+# * Semi-Annual Channel
+# * Defer features update to max possible 365 (until they a well tested)
+$WindowsUpdatePath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
+New-Item -Path $WindowsUpdatePath -Force
+Set-ItemProperty -Path $WindowsUpdatePath -Name BranchReadinessLevel -Type DWord -Value 32 -Force
+Set-ItemProperty -Path $WindowsUpdatePath -Name DeferFeatureUpdates -Type DWord -Value 1 -Force
+Set-ItemProperty -Path $WindowsUpdatePath -Name DeferFeatureUpdatesPeriodInDays -Type DWord -Value 365 -Force
+Set-ItemProperty -Path $WindowsUpdatePath -Name DeferQualityUpdates -Type DWord -Value 1 -Force
+Set-ItemProperty -Path $WindowsUpdatePath -Name DeferQualityUpdatesPeriodInDays -Type DWord -Value 0 -Force
+Set-ItemProperty -Path $WindowsUpdatePath -Name ManagePreviewBuilds -Type DWord -Value 1 -Force
+Set-ItemProperty -Path $WindowsUpdatePath -Name ManagePreviewBuildsPolicyValue -Type DWord -Value 0 -Force
+Set-ItemProperty -Path $WindowsUpdatePath -Name PauseFeatureUpdatesStartTime -Value ""
+Set-ItemProperty -Path $WindowsUpdatePath -Name PauseQualityUpdatesStartTime -Value ""
+New-Item -Path "$WindowsUpdatePath\AU" -Force
+Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AUOptions -Type DWord -Value 2 -Force
+Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name NoAutoUpdate -Type DWord -Value 0 -Force
+Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AllowMUUpdateService -Type DWord -Value 1 -Force
+Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name IncludeRecommendedUpdates -Type DWord -Value 1 -Force
+Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name NoAutoRebootWithLoggedOnUsers -Type DWord -Value 1 -Force
+Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallDay -Type DWord -Value 0 -Force
+Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallEveryWeek -Type DWord -Value 1 -Force
+Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallTime -Type DWord -Value 3 -Force
+
 # Disable windows defender
 Set-MpPreference -DisableRealtimeMonitoring $true
 $DefenderPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender"
@@ -16,35 +41,6 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
 
 # Disable Remote Assistance
 Set-ItemProperty -Path  "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0 -Force 
-
-function configure-updates() {
-# Set Windows Update to:
-# * Notify before download and install
-# * Semi-Annual Channel
-# * Defer features update to max possible 365 (until they a well tested)
-#gpupdate /force /target:computer
-$WindowsUpdatePath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
-New-Item -Path $WindowsUpdatePath -Force
-Set-ItemProperty -Path $WindowsUpdatePath -Name DeferFeatureUpdates -Type DWord -Value 1 -Force
-Set-ItemProperty -Path $WindowsUpdatePath -Name BranchReadinessLevel -Type DWord -Value 32 -Force
-Set-ItemProperty -Path $WindowsUpdatePath -Name DeferFeatureUpdatesPeriodInDays -Type DWord -Value 365 -Force
-#Set-ItemProperty -Path $WindowsUpdatePath -Name PauseFeatureUpdatesStartTime -Value ""
-Set-ItemProperty -Path $WindowsUpdatePath -Name ManagePreviewBuilds -Type DWord -Value 1 -Force
-Set-ItemProperty -Path $WindowsUpdatePath -Name ManagePreviewBuildsPolicyValue -Type DWord -Value 0 -Force
-#Set-ItemProperty -Path $WindowsUpdatePath -Name DeferQualityUpdates -Type DWord -Value 0 -Force
-#Set-ItemProperty -Path $WindowsUpdatePath -Name DeferQualityUpdatesPeriodInDays -Type DWord -Value 0 -Force
-#Set-ItemProperty -Path $WindowsUpdatePath -Name PauseQualityUpdatesStartTime -Value ""
-New-Item -Path "$WindowsUpdatePath\AU" -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name NoAutoUpdate -Type DWord -Value 0 -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AllowMUUpdateService -Type DWord -Value 1 -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AUOptions -Type DWord -Value 2 -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name IncludeRecommendedUpdates -Type DWord -Value 1 -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name NoAutoRebootWithLoggedOnUsers -Type DWord -Value 1 -Force
-#Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallDay -Type DWord -Value 0 -Force
-#Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallTime -Type DWord -Value 3 -Force
-#Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallEveryWeek -Type DWord -Value 1 -Force
-#gpupdate /force /target:computer
-}
 
 # Disable Cortana
 $WindowsSearchPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"
@@ -141,8 +137,8 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -N
 
 # Disable Telemetry (requires a reboot to take effect)
 # Note this may break Insider builds for your organization
-Set-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection -Name AllowTelemetry -Type DWord -Value 0
-# Get-Service DiagTrack,Dmwappushservice | Stop-Service | Set-Service -StartupType Disabled
+Set-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection -Name AllowTelemetry -Type DWord -Value 1
+Get-Service DiagTrack,Dmwappushservice | Stop-Service | Set-Service -StartupType Disabled
 
 # Change Explorer home screen back to "This PC"
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Type DWord -Value 1
