@@ -200,7 +200,7 @@ If (-Not (Test-Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 }
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name PeopleBand -Type DWord -Value 0
 
-Invoke-Boxstarter -RebootOk -ScriptToCall {
+Invoke-Boxstarter -ScriptToCall {
     Install-WindowsUpdate -AcceptEula
     
     Disable-BingSearch
