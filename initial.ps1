@@ -1,7 +1,6 @@
 $Boxstarter.RebootOk = $true # Allow reboots?
 $Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
-#$Password = Read-Host -AsSecureString "Autologon Password"
-#$Boxstarter.NoPassword = $Password.Length -eq 0
+#$Boxstarter.NoPassword = true
 
 
 #Update-ExecutionPolicy Unrestricted
@@ -203,10 +202,11 @@ Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\
 
 Invoke-Boxstarter -RebootOk -ScriptToCall {
     Install-WindowsUpdate -AcceptEula
+    
+    Disable-BingSearch
+    Disable-GameBarTips
+    Set-WindowsExplorerOptions -EnableShowFileExtensions
+    Set-TaskbarOptions -AlwaysShowIconsOn
+    Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
 }
 
-Disable-BingSearch
-Disable-GameBarTips
-Set-WindowsExplorerOptions -EnableShowFileExtensions
-Set-TaskbarOptions -AlwaysShowIconsOn
-Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
