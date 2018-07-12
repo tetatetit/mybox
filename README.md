@@ -1,3 +1,5 @@
+#mybox
+
 Install boxstarter:
 `. { iwr -useb http://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force`
 You might need to set: `Set-ExecutionPolicy RemoteSigned`
