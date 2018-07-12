@@ -6,7 +6,7 @@ $Boxstarter.NoPassword = $Password.Length -eq 0
 # Set Windows Update to:
 # * Semi-Annual Channel
 # * Defer features update to max possible 365 (until they a well tested)
-# * Notify before download and install
+# * Notify for download and auto install
 $WindowsUpdatePath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
 New-Item -Path $WindowsUpdatePath -Force
 Set-ItemProperty -Path $WindowsUpdatePath -Name BranchReadinessLevel -Type DWord -Value 32 -Force
