@@ -2,6 +2,7 @@
 #$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 #$Boxstarter.NoPassword = true
 
+if(-not (Test-Path "c:\mybox-configured")) {
 
 #Update-ExecutionPolicy Unrestricted
 #Set-ExecutionPolicy -Force RemoteSigned
@@ -198,15 +199,19 @@ Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\P
 If (-Not (Test-Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People")) {
     New-Item -Path HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People | Out-Null
 }
+
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name PeopleBand -Type DWord -Value 0
 
-Invoke-Boxstarter -ScriptToCall {
-    Install-WindowsUpdate -AcceptEula
-    
-    Disable-BingSearch
-    Disable-GameBarTips
-    Set-WindowsExplorerOptions -EnableShowFileExtensions
-    Set-TaskbarOptions -AlwaysShowIconsOn
-    Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
+Disable-BingSearch
+Disable-GameBarTips
+Set-WindowsExplorerOptions -EnableShowFileExtensions
+Set-TaskbarOptions -AlwaysShowIconsOn
+Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
+
+fc > "c:\mybox-configured"
 }
+
+Install-WindowsUpdate -AcceptEula
+
+
 
