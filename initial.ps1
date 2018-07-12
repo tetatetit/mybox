@@ -1,7 +1,7 @@
 $Boxstarter.RebootOk = $true # Allow reboots?
 $Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
-$Password = Read-Host -AsSecureString "Autologon Password"
-$Boxstarter.NoPassword = $Password.Length -eq 0
+#$Password = Read-Host -AsSecureString "Autologon Password"
+#$Boxstarter.NoPassword = $Password.Length -eq 0
 
 
 #Update-ExecutionPolicy Unrestricted
@@ -201,7 +201,7 @@ If (-Not (Test-Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 }
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name PeopleBand -Type DWord -Value 0
 
-Invoke-Boxstarter -RebootOk -Password $Password -NoPassword $Boxstarter.NoPassword -ScriptToCall {
+Invoke-Boxstarter -RebootOk -ScriptToCall {
     Install-WindowsUpdate -AcceptEula
 }
 
