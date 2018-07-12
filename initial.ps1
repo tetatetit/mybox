@@ -212,10 +212,12 @@ foreach($app in $AppsToRemove) {
 
 Install-WindowsUpdate -AcceptEula
 
+if(Test-PendingReboot) {
+    Invoke-Reboot
+}
+
 choco upgrade -y vmware-tools
 
 if(Test-PendingReboot) {
     Invoke-Reboot
 }
-
-
