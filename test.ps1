@@ -1,7 +1,5 @@
 $Boxstarter.RebootOk = $true # Allow reboots?
 $Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
-$Password = Read-Host -AsSecureString "Autologon Password"
-$Boxstarter.NoPassword = $Password.Length -eq 0
 
 # Set Windows Update to:
 # * Semi-Annual Channel
@@ -15,6 +13,5 @@ Set-ItemProperty -Path $WindowsUpdatePath -Name DeferFeatureUpdatesPeriodInDays 
 New-Item -Path "$WindowsUpdatePath\AU" -Force
 Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AUOptions -Type DWord -Value 2 -Force
 
-Invoke-Boxstarter -RebootOk -Password $Password -NoPassword $Boxstarter.NoPassword -ScriptToCall {
-    Install-WindowsUpdate -AcceptEula
-}
+Install-WindowsUpdate -AcceptEula
+
