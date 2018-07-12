@@ -1,5 +1,5 @@
-$Boxstarter.RebootOk = $true # Allow reboots?
-$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
+#$Boxstarter.RebootOk = $true # Allow reboots?
+#$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 #$Boxstarter.NoPassword = true
 
 
