@@ -68,70 +68,6 @@ Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Backgro
 # Disable Smart Screen
 Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -Type DWord -Value 0 -Force 
 
-
-# --- Uninstall crapware ---
-
-# Uinstall OneDrive (to install older v17 one)
-taskkill /f /im OneDrive.exe
-C:\Windows\SysWOW64\OneDriveSetup.exe /uninstall
-
-$AppsToRemove = (
-    "*Microsoft.3DBuilder*",
-    "*Microsoft.WindowsAlarms*",
-    "*Autodesk*",
-    "*Microsoft.BingFinance*", "*Microsoft.BingNews*", "*Microsoft.BingSports*", "*Microsoft.BingWeather*",
-    "*BubbleWitch*",
-    "*king.com.CandyCrush*",
-    "*Microsoft.CommsPhone*",
-    "*Dell*",
-    "*Dropbox*",
-    "*Facebook*",
-    "*Microsoft.WindowsFeedbackHub*",
-    "*Microsoft.Getstarted*",
-    "*Keeper*",
-    "*microsoft.windowscommunicationsapps*", # Mail & Calendar
-    "*Microsoft.WindowsMaps*",
-    "*MarchofEmpires*",
-    "*McAfee*",
-    "*Microsoft.Messaging*",
-    "*Minecraft*",
-    "*Netflix*",
-    "*Microsoft.MicrosoftOfficeHub*",
-    "*Microsoft.OneConnect*",
-    "*Microsoft.Office.OneNote*",
-    "*Microsoft.People*",
-    "*Microsoft.WindowsPhone*",
-    "*Microsoft.Windows.Photos*",
-    "*Plex*",
-    "*Microsoft.SkypeApp*", # Metro version
-    "*Microsoft.WindowsSoundRecorder*",
-    "*Solitaire*",
-    "*Microsoft.MicrosoftStickyNotes*",
-    "*Microsoft.Office.Sway*",
-    "*Twitter*",
-    #"*Microsoft.XboxApp*", "*Microsoft.XboxGame*", "*Microsoft.XboxIdentityProvider*",
-    "*Microsoft.Xbox*", # All Xbox crapware
-    "*Microsoft.ZuneMusic*", "*Microsoft.ZuneVideo*",
-    "*AdobeSystemsIncorporated.AdobePhotoshopExpress*",
-    "*Microsoft.Print3D*", "*Microsoft.3DBuilder*", "*Microsoft.Microsoft3DViewer*",
-    "*Microsoft.WindowsCalculator*",
-    "*Microsoft.WindowsCamera*",
-    "*Microsoft.MSPaint*",
-    "*Microsoft.Windows.Cortana*"
-)
-foreach($app in $AppsToRemove) {
-	Get-AppxPackage $app | Remove-AppxPackage
-	Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -like $app} | Remove-AppxProvisionedPackage -Online
-}
-
-# Uninstall McAfee Security App
-$mcafee = gci "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | foreach { gp $_.PSPath } | ? { $_ -match "McAfee Security" } | select UninstallString
-if ($mcafee) {
-	$mcafee = $mcafee.UninstallString -Replace "C:\Program Files\McAfee\MSC\mcuihost.exe",""
-	Write "Uninstalling McAfee..."
-	start-process "C:\Program Files\McAfee\MSC\mcuihost.exe" -arg "$mcafee" -Wait
-}
-
 # WiFi Sense: HotSpot Sharing: Disable
 If (-Not (Test-Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting")) {
     New-Item -Path HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting | Out-Null
@@ -211,7 +147,75 @@ Enable-RemoteDesktop -DoNotRequireUserLevelAuthentication
 fc > "c:\mybox-configured"
 }
 
+# --- Uninstall crapware ---
+
+# Uninstall McAfee Security App
+$mcafee = gci "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | foreach { gp $_.PSPath } | ? { $_ -match "McAfee Security" } | select UninstallString
+if ($mcafee) {
+	$mcafee = $mcafee.UninstallString -Replace "C:\Program Files\McAfee\MSC\mcuihost.exe",""
+	Write "Uninstalling McAfee..."
+	start-process "C:\Program Files\McAfee\MSC\mcuihost.exe" -arg "$mcafee" -Wait
+}
+
+# Uinstall OneDrive (to install older v17 one)
+taskkill /f /im OneDrive.exe
+C:\Windows\SysWOW64\OneDriveSetup.exe /uninstall
+
+$AppsToRemove = (
+    "*Microsoft.3DBuilder*",
+    "*Microsoft.WindowsAlarms*",
+    "*Autodesk*",
+    "*Microsoft.BingFinance*", "*Microsoft.BingNews*", "*Microsoft.BingSports*", "*Microsoft.BingWeather*",
+    "*BubbleWitch*",
+    "*king.com.CandyCrush*",
+    "*Microsoft.CommsPhone*",
+    "*Dell*",
+    "*Dropbox*",
+    "*Facebook*",
+    "*Microsoft.WindowsFeedbackHub*",
+    "*Microsoft.Getstarted*",
+    "*Keeper*",
+    "*microsoft.windowscommunicationsapps*", # Mail & Calendar
+    "*Microsoft.WindowsMaps*",
+    "*MarchofEmpires*",
+    "*McAfee*",
+    "*Microsoft.Messaging*",
+    "*Minecraft*",
+    "*Netflix*",
+    "*Microsoft.MicrosoftOfficeHub*",
+    "*Microsoft.OneConnect*",
+    "*Microsoft.Office.OneNote*",
+    "*Microsoft.People*",
+    "*Microsoft.WindowsPhone*",
+    "*Microsoft.Windows.Photos*",
+    "*Plex*",
+    "*Microsoft.SkypeApp*", # Metro version
+    "*Microsoft.WindowsSoundRecorder*",
+    "*Solitaire*",
+    "*Microsoft.MicrosoftStickyNotes*",
+    "*Microsoft.Office.Sway*",
+    "*Twitter*",
+    #"*Microsoft.XboxApp*", "*Microsoft.XboxGame*", "*Microsoft.XboxIdentityProvider*",
+    "*Microsoft.Xbox*", # All Xbox crapware
+    "*Microsoft.ZuneMusic*", "*Microsoft.ZuneVideo*",
+    "*AdobeSystemsIncorporated.AdobePhotoshopExpress*",
+    "*Microsoft.Print3D*", "*Microsoft.3DBuilder*", "*Microsoft.Microsoft3DViewer*",
+    "*Microsoft.WindowsCalculator*",
+    "*Microsoft.WindowsCamera*",
+    "*Microsoft.MSPaint*",
+    "*Microsoft.Windows.Cortana*"
+)
+foreach($app in $AppsToRemove) {
+	Get-AppxPackage $app | Remove-AppxPackage
+	Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -like $app} | Remove-AppxProvisionedPackage -Online
+}
+
 Install-WindowsUpdate -AcceptEula
 
+choco upgrade -y vmware-tools
+
+if(Test-PendingReboot) {
+    Invoke-Reboot
+}
 
 
