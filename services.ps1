@@ -67,7 +67,7 @@ ms  Spooler
 ds  SSDPSRV
 ds  StateService
 ms  SysMain
-ds  TabletInputService
+#ds  TabletInputService
 ms  Themes
 ds  tiledatamodelsvc
 ds  TimeBrokerSvc
