@@ -1,15 +1,15 @@
 $servicesPath = "HKLM:\System\CurrentControlSet\Services"
 
 function set-startType($serviceName, $startType) {
-  $servicePath = $servicesPath\$serviceName
-  if(-not ($defaultStartType = get-itemProperty -Path $servicePath -Name StartDefault)) {
+  $servicePath = "$servicesPath\$serviceName"
+  if(-not ($defaultStartType = get-itemProperty -Path $servicePath -Name StartDefault -ErrorAction SilentlyContinue)) {
     Set-ItemProperty -Path $servicePath -Name StartDefault -Type DWord -Value $defaultStartType -Force
   }
   Set-ItemProperty -Path $servicePath -Name Start -Type DWord -Value $startType -Force
 }
 
 function restore-startType($serviceName) {
-  $servicePath = $servicesPath\$serviceName
+  $servicePath = "$servicesPath\$serviceName"
   if($defaultStartType = get-itemProperty -Path $servicePath -Name StartDefault) {
     set-ItemProperty -Path $servicePath -Name Start -Type DWord -Value $defaultStartType -Force
     remove-ItemProperty -Path $servicePath -Name StartDefault
