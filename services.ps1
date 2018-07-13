@@ -60,7 +60,7 @@ ms	Themes
 ms	TrkWks
 ms	VGAuthService
 ms	VMTools
-ms	VMware Physical Disk Helper Service
+ms	"VMware Physical Disk Helper Service"
 ms	WpnService
 ms	WpnUserService_25d4f
 ms	wscsvc
