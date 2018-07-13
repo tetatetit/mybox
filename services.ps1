@@ -3,8 +3,8 @@ $servicesPath = "HKLM:\System\CurrentControlSet\Services"
 function set-startType($serviceName, $startType) {
   $servicePath = "$servicesPath\$serviceName"
   if(-not (get-itemProperty -Path $servicePath -Name StartDefault -ErrorAction SilentlyContinue)) {
-    $defaultStarType = get-itemProperty -Path $servicePath -Name Start
-    set-ItemProperty -Force -Path $servicePath -Name StartDefault -Type DWord -Value $defaultStarType
+    $defaultStartType = get-itemProperty -Path $servicePath -Name Start
+    set-ItemProperty -Force -Path $servicePath -Name StartDefault -Type DWord -Value $defaultStartType
   }
   set-ItemProperty -Path $servicePath -Name Start -Type DWord -Value $startType -Force
 }
