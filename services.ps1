@@ -65,7 +65,6 @@ ds  SensorService
 ds  ShellHWDetection
 ms  Spooler
 ds  SSDPSRV
-ds  StateRepository
 ms  SysMain
 ms  Themes
 ds  tiledatamodelsvc
