@@ -1,5 +1,3 @@
-$ErrorActionPreference = "SilentlyContinue"
-echo "hello, world"
 #$Boxstarter.RebootOk = $true # Allow reboots?
 #$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 #$Boxstarter.NoPassword = true
@@ -161,7 +159,11 @@ if ($mcafee) {
 
 # Uinstall OneDrive (to install older v17 one)
 taskkill /f /im OneDrive.exe
-C:\Windows\SysWOW64\OneDriveSetup.exe /uninstall
+if (Test-Path "$env:systemroot\SysWOW64\OneDriveSetup.exe") {
+    & "$env:systemroot\SysWOW64\OneDriveSetup.exe" /uninstall
+} elseif (Test-Path "$env:systemroot\System32\OneDriveSetup.exe") {
+    & "$env:systemroot\System32\OneDriveSetup.exe" /uninstall
+}
 
 $AppsToRemove = (
     "*Microsoft.3DBuilder*",
