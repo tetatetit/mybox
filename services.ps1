@@ -30,10 +30,12 @@ function rs($serviceName) {
   restore-startType $serviceName
 }
 
+ds  AppXSvc
 ms  AudioEndpointBuilder
 ms  Audiosrv
 ms  CDPSvc
 ms  CDPUserSvc
+ds  CertPropSvc
 ds  CryptSvc
 ms  DiagTrack
 ms  DPS
@@ -56,7 +58,7 @@ ds  Power
 ms  RasMan
 ms  SamSs
 ds  ScDeviceEnum
-ms  Schedule
+ds  Schedule
 ms  SecurityHealthService
 ms  SENS
 ds  SensorService
@@ -66,10 +68,12 @@ ds  SSDPSRV
 ms  SysMain
 ds  TabletInputService
 ms  Themes
+ds  tiledatamodelsvc
 ms  TrkWks
 ms  VGAuthService
 ms  VMTools
 ms  "VMware Physical Disk Helper Service"
+ds  WinHttpAutoProxySvc
 ms  WpnService
 ms  WpnUserService
 ms  wscsvc
