@@ -65,6 +65,7 @@ ds  SensorService
 ds  ShellHWDetection
 ms  Spooler
 ds  SSDPSRV
+ds  StateService
 ms  SysMain
 ds  TabletInputService
 ms  Themes
