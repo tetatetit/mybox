@@ -50,7 +50,7 @@ ms  MpsSvc
 ds  NcbService
 ds  NcdAutoSetup
 ds  netprofm
-ms	OneSyncSvc
+ms  OneSyncSvc
 ds  PolicyAgent
 ds  Power
 ms	RasMan
@@ -74,4 +74,3 @@ ms	WpnService
 ms	WpnUserService
 ms	wscsvc
 ds	WSearch
-
