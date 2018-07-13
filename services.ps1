@@ -1,16 +1,14 @@
 $servicesPath = "HKLM:\System\CurrentControlSet\Services"
-
-function Set-AutoToManual () {
-  $autoServices = get-service | Where-Object {$_.StartType -like "Automatic"}
-  $autoServices | Export-Csv -Path C:\auto-services.csv
-  foreach ($svc in $autoServices) {
-    Set-ItemProperty -Path $servicesPath\$svc.Name -Name Start -Type DWord -Value 3 -Force
-  }
+$startTypes = @{
+  Automatic = 2
+  Manual = 3
+  Disabled = 4
 }
 
-function Set-ManualToAuto () {
-  $autoServices = Import-Csv -Path C:\auto-services.csv
-  foreach ($svc in $autoServices) {
-    Set-ItemProperty -Path $servicesPath\$svc.Name -Name Start -Type DWord -Value 2 -Force
+function Set-ServiceStartType($serviceName, $startType) {
+  $service = get-service -name $serviceName | select StartType,Name,DisplayName
+  if($service) {
+    export-cvs -inputObject $service -append C:\mybox-services.csv
+    Set-ItemProperty -Path "$servicesPath\$($svc.Name)" -Name Start -Type DWord -Value $startTypes[$startType] -Force
   }
 }
