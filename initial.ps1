@@ -202,11 +202,10 @@ $AppsToRemove = (
     "*Microsoft.Print3D*", "*Microsoft.3DBuilder*", "*Microsoft.Microsoft3DViewer*",
     "*Microsoft.WindowsCalculator*",
     "*Microsoft.WindowsCamera*",
-    "*Microsoft.MSPaint*",
-    "*Microsoft.Windows.Cortana*"
+    "*Microsoft.MSPaint*"
 )
 foreach($app in $AppsToRemove) {
-	Get-AppxPackage $app | Remove-AppxPackage
+	Get-AppxPackage $app | Where-Object {$_.Name -notlike "Microsoft.XboxGameCallableUI*" } | Remove-AppxPackage
 	Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -like $app} | Remove-AppxProvisionedPackage -Online
 }
 
