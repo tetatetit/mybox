@@ -65,9 +65,8 @@ ds  SensorService
 ds  ShellHWDetection
 ms  Spooler
 ds  SSDPSRV
-ds  StateService
+ds  StateRepository
 ms  SysMain
-#ds  TabletInputService
 ms  Themes
 ds  tiledatamodelsvc
 ds  TimeBrokerSvc
