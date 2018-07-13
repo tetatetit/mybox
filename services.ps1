@@ -67,7 +67,6 @@ ms  Spooler
 ds  SSDPSRV
 ms  SysMain
 ms  Themes
-#ds  tiledatamodelsvc
 ds  TimeBrokerSvc
 ds  TokenBroker
 ms  TrkWks
