@@ -30,5 +30,35 @@ function rs($serviceName) {
   restore-startType $serviceName
 }
 
+ms	AudioEndpointBuilder
+ms	Audiosrv
+ms	CDPSvc
+ms	CDPUserSvc_25d4f
+ms	DiagTrack
+ms	DPS
+ms	DusmSvc
+ms	EventSystem
+ms	FontCache
+ms	gpsvc
+ms	iphlpsvc
+ms	LanmanServer
+ms	OneSyncSvc_25d4f
+ms	RasMan
+ms	SamSs
+ms	Schedule
+ms	SecurityHealthService
+ms	SENS
+ms	ShellHWDetection
+ms	Spooler
+ms	SysMain
+ms	Themes
+ms	TrkWks
+ms	VGAuthService
+ms	VMTools
+ms	VMware Physical Disk Helper Service
+ms	WpnService
+ms	WpnUserService_25d4f
+ms	wscsvc
+ms	WSearch
 
-ds wscsvc
+
