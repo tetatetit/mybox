@@ -34,6 +34,7 @@ ms	AudioEndpointBuilder
 ms	Audiosrv
 ms	CDPSvc
 ms	CDPUserSvc_25d4f
+ms  CryptSvc
 ms	DiagTrack
 ms	DPS
 ms	DusmSvc
@@ -42,7 +43,10 @@ ms	FontCache
 ms	gpsvc
 ms	iphlpsvc
 ms	LanmanServer
+ms  LanmanWorkstation
+ms  MpsSvc
 ms	OneSyncSvc_25d4f
+ms  Power
 ms	RasMan
 ms	SamSs
 ms	Schedule
@@ -51,6 +55,7 @@ ms	SENS
 ms	ShellHWDetection
 ms	Spooler
 ms	SysMain
+ms  TabletInputService
 ms	Themes
 ms	TrkWks
 ms	VGAuthService
@@ -60,5 +65,3 @@ ms	WpnService
 ms	WpnUserService_25d4f
 ms	wscsvc
 ms	WSearch
-
-
