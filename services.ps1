@@ -72,7 +72,6 @@ ms	VMTools
 ms	"VMware Physical Disk Helper Service"
 ms	WpnService
 ms	WpnUserService
-ms  WpnUserService_1cb71
 ms	wscsvc
 ds	WSearch
 
