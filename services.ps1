@@ -11,7 +11,8 @@ function set-startType($serviceName, $startType) {
 
 function restore-startType($serviceName) {
   $servicePath = "$servicesPath\$serviceName"
-  if($defaultStartType = get-itemProperty -Path $servicePath -Name StartDefault -ErrorAction SilentlyContinue) {
+  $defaultStartType = get-itemProperty -Path $servicePath -Name StartDefault -ErrorAction SilentlyContinue
+  if($defaultStartType) {
     set-ItemProperty -Path $servicePath -Name Start -Type DWord -Value $defaultStartType -Force
     remove-ItemProperty -Path $servicePath -Name StartDefault
   }
