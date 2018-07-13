@@ -68,6 +68,7 @@ ms  Themes
 ds  TimeBrokerSvc
 ds  TokenBroker
 ms  TrkWks
+ds  UmRdpService
 ms  VGAuthService
 ms  VMTools
 ms  "VMware Physical Disk Helper Service"
