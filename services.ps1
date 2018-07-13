@@ -62,6 +62,7 @@ ms	VGAuthService
 ms	VMTools
 ms	"VMware Physical Disk Helper Service"
 ms	WpnService
-ms	WpnUserService_25d4f
+ms	WpnUserService
+ms  WpnUserService_1cb71
 ms	wscsvc
 ms	WSearch
