@@ -69,10 +69,13 @@ ms  SysMain
 ds  TabletInputService
 ms  Themes
 ds  tiledatamodelsvc
+ds  TimeBrokerSvc
+ds  TokenBroker
 ms  TrkWks
 ms  VGAuthService
 ms  VMTools
 ms  "VMware Physical Disk Helper Service"
+ds  WdiServiceHost
 ds  WinHttpAutoProxySvc
 ms  WpnService
 ms  WpnUserService
