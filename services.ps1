@@ -33,7 +33,7 @@ function rs($serviceName) {
 ms	AudioEndpointBuilder
 ms	Audiosrv
 ms	CDPSvc
-ms	CDPUserSvc_25d4f
+ms	CDPUserSvc
 ms  CryptSvc
 ms	DiagTrack
 ms	DPS
@@ -45,7 +45,7 @@ ms	iphlpsvc
 ms	LanmanServer
 ms  LanmanWorkstation
 ms  MpsSvc
-ms	OneSyncSvc_25d4f
+ms	OneSyncSvc
 ms  Power
 ms	RasMan
 ms	SamSs
