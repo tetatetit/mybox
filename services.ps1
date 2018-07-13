@@ -35,8 +35,6 @@ ms  AudioEndpointBuilder
 ms  Audiosrv
 ms  CDPSvc
 ms  CDPUserSvc
-ds  CertPropSvc
-ds  CryptSvc
 ms  DiagTrack
 ms  DPS
 ms  DusmSvc
