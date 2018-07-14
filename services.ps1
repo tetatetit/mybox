@@ -78,3 +78,4 @@ ms  WpnService
 ms  WpnUserService
 ms  wscsvc
 ds  WSearch
+ds  wuauserv
