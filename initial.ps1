@@ -41,7 +41,9 @@ Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallEveryWeek -
 Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallTime -Type DWord -Value 3 -Force
 
 # Disable windows defender
-Set-MpPreference -DisableRealtimeMonitoring $true
+if (Get-Command "Set-MpPreference" -errorAction SilentlyContinue) {
+    Set-MpPreference -DisableRealtimeMonitoring $true
+}
 $DefenderPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender"
 New-Item -Path $DefenderPath -Force
 Set-ItemProperty -Path $DefenderPath -Name DisableAntiSpyware -Type DWord -Value 1 -Force
