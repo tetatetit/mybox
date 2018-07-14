@@ -167,6 +167,8 @@ if (Test-Path "$env:systemroot\SysWOW64\OneDriveSetup.exe") {
     & "$env:systemroot\System32\OneDriveSetup.exe" /uninstall
 }
 
+if (Get-Command "Get-AppxPackage" -errorAction SilentlyContinue) {
+
 $AppsToRemove = (
     "*Microsoft.3DBuilder*",
     "*Microsoft.WindowsAlarms*",
@@ -213,6 +215,8 @@ $AppsToRemove = (
 foreach($app in $AppsToRemove) {
 	Get-AppxPackage $app | Where-Object {$_.Name -notlike "Microsoft.XboxGameCallableUI*" } | Remove-AppxPackage
 	Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -like $app} | Remove-AppxProvisionedPackage -Online
+}
+
 }
 
 Install-WindowsUpdate -AcceptEula
