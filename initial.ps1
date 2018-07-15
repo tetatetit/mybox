@@ -16,7 +16,7 @@ powercfg -change hibernate-timeout-ac 0
 powercfg -change hibernate-timeout-dc 0
 
 # Set Windows Update to:
-# * Notify before download and install
+# * No auto update (if you want "Notify before download and install" - incomment commented and set NoAutoUpdate to 0)
 # * Semi-Annual Channel
 # * Defer features update to max possible 365 (until they a well tested)
 $WindowsUpdatePath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
@@ -31,14 +31,15 @@ Set-ItemProperty -Path $WindowsUpdatePath -Name ManagePreviewBuildsPolicyValue -
 Set-ItemProperty -Path $WindowsUpdatePath -Name PauseFeatureUpdatesStartTime -Value ""
 Set-ItemProperty -Path $WindowsUpdatePath -Name PauseQualityUpdatesStartTime -Value ""
 New-Item -Path "$WindowsUpdatePath\AU" -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AUOptions -Type DWord -Value 2 -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name NoAutoUpdate -Type DWord -Value 0 -Force
+#Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AUOptions -Type DWord -Value 2 -Force
+Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name NoAutoUpdate -Type DWord -Value 1 -Force
 Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AllowMUUpdateService -Type DWord -Value 1 -Force
 Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name IncludeRecommendedUpdates -Type DWord -Value 1 -Force
 Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name NoAutoRebootWithLoggedOnUsers -Type DWord -Value 1 -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallDay -Type DWord -Value 0 -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallEveryWeek -Type DWord -Value 1 -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallTime -Type DWord -Value 3 -Force
+#Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallDay -Type DWord -Value 0 -Force
+#Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallEveryWeek -Type DWord -Value 1 -Force
+#Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name ScheduledInstallTime -Type DWord -Value 3 -Force
+Set-Service -Name wuauserv -StartupType Disabled
 
 # Disable windows defender
 if (Get-Command "Set-MpPreference" -errorAction SilentlyContinue) {
@@ -219,7 +220,10 @@ foreach($app in $AppsToRemove) {
 
 }
 
+Set-Service -Name wuauserv -StartupType Manual
+Start-Service -Name wuauserv
 Install-WindowsUpdate -AcceptEula
+Set-Service -Name wuauserv -StartupType Disabled
 
 if(Test-PendingReboot) {
     Invoke-Reboot
