@@ -62,7 +62,10 @@ New-Item -Path $WindowsSearchPath -Force
 Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCortana" -Type DWord -Value 0 -Force 
 
 # Disable Automatic Maintenance
-Set-ItemProperty -Path  "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" -Name "MaintenanceDisabled" -Type DWord -Value 1 -Force 
+Set-ItemProperty -Path  "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" -Name "MaintenanceDisabled" -Type DWord -Value 1 -Force
+
+# Disable automatic diagnostics
+Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\ScheduledDiagnostics" -Name "EnabledExecution" -Type DWord -Value 1 -Force
 
 # Disable Background Apps
 Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Name "GlobalUserDisabled" -Type DWord -Value 1 -Force 
