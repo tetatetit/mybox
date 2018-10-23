@@ -31,7 +31,7 @@ Set-ItemProperty -Path $WindowsUpdatePath -Name ManagePreviewBuildsPolicyValue -
 Set-ItemProperty -Path $WindowsUpdatePath -Name PauseFeatureUpdatesStartTime -Value ""
 Set-ItemProperty -Path $WindowsUpdatePath -Name PauseQualityUpdatesStartTime -Value ""
 New-Item -Path "$WindowsUpdatePath\AU" -Force
-Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AUOptions -Type DWord -Value 2 -Force
+#Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AUOptions -Type DWord -Value 2 -Force
 Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name NoAutoUpdate -Type DWord -Value 1 -Force
 Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name AllowMUUpdateService -Type DWord -Value 1 -Force
 Set-ItemProperty -Path "$WindowsUpdatePath\AU" -Name IncludeRecommendedUpdates -Type DWord -Value 1 -Force
