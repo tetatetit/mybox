@@ -2,7 +2,7 @@
 #$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 #$Boxstarter.NoPassword = true
 
-if(-not (Test-Path "c:\mybox-configured")) {
+#if(-not (Test-Path "c:\mybox-configured")) {
 
 #Update-ExecutionPolicy Unrestricted
 #Set-ExecutionPolicy -Force RemoteSigned
@@ -221,7 +221,7 @@ foreach($app in $AppsToRemove) {
 	Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -like $app} | Remove-AppxProvisionedPackage -Online
 }
 
-}
+#}
 
 Set-Service -Name wuauserv -StartupType Manual
 Start-Service -Name wuauserv
