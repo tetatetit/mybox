@@ -232,8 +232,8 @@ if(Test-PendingReboot) {
     Invoke-Reboot
 }
 
-choco upgrade -y vmware-tools
+#choco upgrade -y vmware-tools
 
-if(Test-PendingReboot) {
-    Invoke-Reboot
-}
+#if(Test-PendingReboot) {
+#    Invoke-Reboot
+#}
